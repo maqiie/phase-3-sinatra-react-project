@@ -10,9 +10,9 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_03_06_001528) do
+ActiveRecord::Schema.define(version: 2023_03_07_123456) do
 
-  create_table "projects", force: :cascade do |t|
+  create_table "Projects", force: :cascade do |t|
     t.string "title"
     t.string "description"
   end
@@ -23,6 +23,8 @@ ActiveRecord::Schema.define(version: 2023_03_06_001528) do
     t.string "role", default: "user"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "name"
+    t.string "passwordHash"
   end
 
 end
