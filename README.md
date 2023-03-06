@@ -2,8 +2,7 @@
 
 ## Learning Goals
 
-- Build a web basic API with Sinatra and Active Record to support a React
-  frontend
+- frontend repository https://github.com/maqiie/ruby-frontend
 
 ## Introduction
 
