@@ -17,6 +17,10 @@ task :server do
   exec "bundle exec rerun -b '#{rackup}'"
 end
 
+task :start do
+  exec "rerun -b 'rackup config.ru'"
+end 
+
 desc "Start the console"
 task :console do
   ActiveRecord::Base.logger = Logger.new(STDOUT)

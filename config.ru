@@ -10,6 +10,8 @@ end
 
 # Parse JSON from the request body into the params hash
 use Rack::JSONBodyParser
-
+use ApplicationController
+use ProjectController
+run UserController
 # Our application
 run ApplicationController
