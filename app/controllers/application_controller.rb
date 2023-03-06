@@ -2,14 +2,19 @@ class ApplicationController < Sinatra::Base
   set :default_content_type, 'application/json'
   
   # Add your routes here
-  get "/" do
-    { message: "Good luck with your project!" }.to_json
-  end
+ 
 get '/users' do
-  @users=User.all.to_json
+  users = User.all
+  users.to_json
 end
 get '/projects' do 
-  @projects=Project.all.to_json
+  projects=Project.all.to_json
 end
+ get 'users/:id' do
+  @users=User.find(params[:id])
+  @users.to_json(include: :projects)
+ end
+
+
 end
-  # fetch("http://localhost:9292/users")
+ 
