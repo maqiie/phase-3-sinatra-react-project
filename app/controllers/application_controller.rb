@@ -12,3 +12,4 @@ get '/projects' do
   @projects=Project.all.to_json
 end
 end
+  # fetch("http://localhost:9292/users")
