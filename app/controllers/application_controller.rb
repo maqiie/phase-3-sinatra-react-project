@@ -1,7 +1,10 @@
 class ApplicationController < Sinatra::Base
   set :default_content_type, 'application/json'
-  
-  # Add your routes here
+configure { enable :cross_origin }
+
+before { response.headers['Access-Control-Allow-Origin'] = '*' }
+
+
  
 get '/users' do
   users = User.all
@@ -17,4 +20,4 @@ end
 
 
 end
- 
+
