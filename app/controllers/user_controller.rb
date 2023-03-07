@@ -10,26 +10,26 @@ class UserController < ApplicationController
     headers['Access-Control-Allow-Methods'] = 'POST, GET, OPTIONS'
     headers['Access-Control-Allow-Headers'] = 'Content-Type, Authorization'
     content_type :json
-    begin
-      @user = user_data
-    rescue StandardError
-      @user = nil
-    end
+  
+    request.body.rewind
+    @user = JSON.parse(request.body.read) rescue nil
   end
+  
 
   # registers a new user to the data base
   post '/register' do
     begin
       user = User.create(
-        name: @user['name'],
-        email: @user['email'],
-        passwordHash: @user['passwordHash']
+        name: params[:name],
+        email: params[:email],
+        passwordHash: params[:passwordHash]
       )
       build_response(code: 200, data: user)
     rescue => e
       build_response(code: 500, error: e.message)
     end
   end
+  
 
   
   post '/login' do
@@ -62,7 +62,7 @@ class UserController < ApplicationController
 # deletes a user
 delete '/destroy/:id' do
   begin
-    user = User.find(params[:id].to_i)
+    user = User.find_by(id: params[:id].to_i)
     if user.nil?
       response(code: 404, data: { error: 'User not found' })
     else
@@ -75,6 +75,7 @@ delete '/destroy/:id' do
     response(code: 500, data: { error: e.message })
   end
 end
+
 
 
   # gets all projects a user has
