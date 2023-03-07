@@ -31,13 +31,15 @@ class UserController < ApplicationController
     end
   end
 
-  # # logs in user using email and password
+  
   post '/login' do
     begin
-      user_data = User.find_by(email: @user['email'])
-      if user_data && user_data.passwordHash == @user['passwordHash']
+      user_data = User.find_by(email: params['email'])
+      if user_data && user_data.password == params['password']
+        # The user's plain-text password matches the plain-text password in the database
         build_response(code: 200, data: { id: user_data.id, email: user_data.email })
       else
+        # The user's plain-text password does not match the plain-text password in the database
         build_response(
           code: 422,
           data: {
@@ -49,23 +51,7 @@ class UserController < ApplicationController
       build_response(code: 500, error: e.message)
     end
   end
-  # post '/login' do
-  #   begin
-  #     user_data = User.find_by(email: params['email'])
-  #     if user_data && user_data.passwordHash == params['password']
-  #       build_response(code: 200, data: { id: user_data.id, email: user_data.email })
-  #     else
-  #       build_response(
-  #         code: 422,
-  #         data: {
-  #           message: 'Your email/password combination is not correct',
-  #         },
-  #       )
-  #     end
-  #   rescue => e
-  #     build_response(code: 500, error: e.message)
-  #   end
-  # end
+  
   
   # displays all users
   get '/users' do
