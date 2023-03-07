@@ -55,6 +55,24 @@ class UserController < ApplicationController
     user = User.all
     build_response(code: 200, data: user)
   end
+    
+# deletes a user
+delete '/destroy/:id' do
+  begin
+    user = User.find(params[:id].to_i)
+    if user.nil?
+      response(code: 404, data: { error: 'User not found' })
+    else
+      user.destroy
+      response(data: { message: 'User deleted successfully' })
+    end
+  rescue ActiveRecord::RecordNotFound
+    response(code: 404, data: { error: 'User not found' })
+  rescue => e
+    response(code: 500, data: { error: e.message })
+  end
+end
+
 
   # gets all projects a user has
   get '/user/projects/:id' do
