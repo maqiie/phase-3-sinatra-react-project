@@ -47,15 +47,6 @@ post '/project/:id/user' do
   project.to_json(include: :users)
 end
 
-# Add a many-to-many relationship between Project and User
-class Project < ActiveRecord::Base
-  has_and_belongs_to_many :users
-end
-
-class User < ActiveRecord::Base
-  has_and_belongs_to_many :projects
-end
-
 
   # deletes a project
   delete '/destroy/:id' do
